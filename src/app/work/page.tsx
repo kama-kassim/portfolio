@@ -32,20 +32,8 @@ export default function WorkPage() {
         </p>
       </section>
 
-      <section className={wrap}>
+      <section className={`pb-24 ${wrap}`}>
         <WorkList projects={projects} />
-      </section>
-
-      <section className={`pb-32 pt-10 ${wrap}`}>
-        <div className="flex -rotate-[0.5deg] flex-col gap-6 rounded-[14px] border-[2.5px] border-dashed border-ink bg-white px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-9">
-          <div className="flex flex-col gap-1.5">
-            <p className="m-0 font-hand text-3xl text-accent-dark">older pages</p>
-            <p className="m-0 text-xl font-semibold">School projects, awards and video work from 2021–2022 live in the archive.</p>
-          </div>
-          <Link href="/archive" className="btn-comic btn-secondary shrink-0 px-6 py-3.5 text-[19px]">
-            Open the archive →
-          </Link>
-        </div>
       </section>
     </>
   );

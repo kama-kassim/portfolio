@@ -14,7 +14,6 @@ export function SiteFooter() {
         <Link href="/work">Work</Link>
         <Link href="/playground">Playground</Link>
         <Link href="/about">About</Link>
-        <Link href="/archive">Archive</Link>
         <a href={site.cv}>CV</a>
       </nav>
       <div className="flex gap-5 font-semibold">

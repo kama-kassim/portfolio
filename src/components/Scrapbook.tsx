@@ -26,9 +26,10 @@ export function RoleTag({ role }: { role: Role }) {
 }
 
 /** Grey box standing in for a screenshot until a real image is added. */
-export function Placeholder({ label, className = "" }: { label: string; className?: string }) {
+export function Placeholder({ label, className = "", style }: { label: string; className?: string; style?: CSSProperties }) {
   return (
     <div
+      style={style}
       className={`flex items-center justify-center border-2 border-ink bg-placeholder p-4 text-center font-medium text-[#7a7275] ${className}`}
     >
       [{label}]

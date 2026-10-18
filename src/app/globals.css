@@ -20,6 +20,8 @@
 html {
   background-color: var(--color-paper);
   color-scheme: light;
+  /* tilted tape and stickers poke past the edge on phones; never let them cause sideways scroll */
+  overflow-x: clip;
 }
 
 /* Lined notebook paper behind every page */
