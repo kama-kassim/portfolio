@@ -5,23 +5,23 @@ import { site } from "@/content/site";
 import { Placeholder, Tape } from "@/components/Scrapbook";
 
 export const metadata: Metadata = {
-  title: "About — Kama Kassim",
+  title: "About — Kama's Sketchbook",
   description: "Kama Kassim, front-end developer in Malaysia who designs and builds websites.",
 };
 
-const wrap = "px-5 sm:px-10 lg:pl-60 lg:pr-48";
+const wrap = "px-5 sm:px-10 lg:pl-40 lg:pr-24";
 
-// TODO: fill in dates, roles and companies
 const timeline = [
-  { when: "[20XX] — now", title: "[Your current role]", where: "[Company]", text: "Building client websites in WordPress (Elementor Pro, JetEngine), Shopify (Liquid) and Next.js + Storyblok." },
-  { when: "[20XX] — [20XX]", title: "[Previous role, or freelance]", where: "[Company]", text: "[One line on what you did there.]" },
-  { when: "2022", title: "Gold award, MTE 2022", where: "Competition", text: "Video project for the STEM@Home module." },
-  { when: "2021", title: "Gold award, IRIA 2021", where: "Competition", text: "[One line on the project.]" },
-  { when: "[20XX]", title: "[Degree], Software Engineering", where: "[University]", text: "[Anything worth mentioning: final-year project, focus area.]" },
+  { when: "Sep 2025 — now", title: "Website Developer", where: "Openminds Resources", text: "8 client sites on Shopify, WordPress and Storyblok, headless Next.js and Nuxt.js builds, and CI/CD releases." },
+  { when: "Jun — Aug 2025", title: "Website Designer", where: "Airda Group", text: "Designed and built two Shopify stores, including Jolicare, and tracked UX changes against revenue per session." },
+  { when: "Mar 2024 — May 2025", title: "Digital Marketer, grew into web development", where: "Boss Seven Engineering", text: "Designed in Figma, then built four WordPress and Wix sites, including a ToyyibPay fee registration system." },
+  { when: "2021 — 2022", title: "Gold awards, I-RIA 2021 and MTE 2022", where: "Competitions", text: "Malaysian Technology Expo and I-RIA, during my degree." },
+  { when: "2019 — 2023", title: "Bachelor of Software Engineering (Hons)", where: "UNISEL", text: "Second Class Honours, CGPA 3.51." },
 ];
 
-const build = ["Next.js", "Tailwind", "HTML & CSS", "WordPress", "Elementor Pro", "JetEngine", "Shopify Liquid", "Storyblok", "GitHub · Vercel"];
-const design = ["Claude Design", "Figma", "Photoshop", "Illustration"];
+// Matches the Skills section of the CV
+const build = ["HTML, CSS & JavaScript", "TypeScript", "Next.js", "Nuxt.js", "Tailwind", "Storyblok", "WordPress", "Elementor Pro", "JetEngine", "Shopify Liquid", "PageFly · GemPages", "Wix", "Git · GitHub · CI/CD", "Vercel", "GTM · GA4"];
+const design = ["Figma", "Framer", "Photoshop", "Claude Design", "Wireframes", "Prototypes", "User flows", "JavaScript animation", "Illustration"];
 
 export default function AboutPage() {
   return (
@@ -30,7 +30,7 @@ export default function AboutPage() {
         <div className="relative flex justify-center lg:col-span-5">
           <figure className="relative m-0 w-full max-w-[340px] rotate-[2.5deg] border-2 border-ink bg-white px-4 pb-[52px] pt-4 shadow-[0_16px_24px_-16px_rgba(35,31,32,0.4)]">
             <Tape className="left-1/2 -top-4 w-[120px] -translate-x-1/2" r={-3} />
-            <Placeholder label="your photo" className="h-[380px]" />
+            <Placeholder label="your photo" bare className="h-[380px]" />
             <figcaption className="absolute bottom-3 left-5 font-hand text-[26px]">that&apos;s me, hi</figcaption>
             <Image src="/oyen.svg" alt="" width={150} height={88} className="absolute -right-4 bottom-[-28px] w-28 -rotate-[8deg] sm:-right-12 sm:w-[150px]" />
           </figure>
@@ -40,10 +40,10 @@ export default function AboutPage() {
           <h1 className="m-0 text-5xl font-extrabold leading-[0.95] tracking-[-0.03em] sm:text-7xl lg:text-[88px]">About me</h1>
           <p className="m-0 max-w-[620px] text-xl leading-[1.7] sm:text-[21px]">
             I&apos;m Kama Kassim, a front-end developer in Malaysia with a Software Engineering background. I build websites in
-            WordPress, Shopify and Next.js, and I design a lot of them too.
+            Next.js, Nuxt.js, Storyblok, WordPress and Shopify, and I design a lot of them too.
           </p>
           <p className="m-0 max-w-[620px] text-[19px] leading-[1.7] text-muted">
-            I&apos;ve shipped 12 live sites so far, from custom Shopify sections to a headless Next.js build with Storyblok.
+            Building websites since 2024, from custom Shopify sections to headless Storyblok sites in Next.js and Nuxt.js. Before that I ran Meta Ads and wrote web copy, so I think about the customer journey too.
           </p>
           <div className="mt-1.5 flex flex-wrap gap-4">
             <a href={site.cv} className="btn-comic btn-primary px-6 py-3.5 text-lg">
@@ -113,7 +113,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-1.5">
             <h2 className="m-0 text-3xl font-extrabold tracking-tight sm:text-4xl">Want the short version?</h2>
             <p className="m-0 text-lg text-muted">
-              My CV has everything on one page. Or just say hi, I reply within <span className="whitespace-nowrap">1–2 days</span>.
+              My CV has the full story. Or just say hi, I reply within <span className="whitespace-nowrap">1–2 days</span>.
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-4">

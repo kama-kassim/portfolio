@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Pinboard, type Artwork } from "@/components/Pinboard";
 
 export const metadata: Metadata = {
-  title: "Playground — Kama Kassim",
+  title: "Playground — Kama's Sketchbook",
   description: "Anime-style characters, fan art and sketches Kama draws for fun.",
 };
 
@@ -19,7 +19,7 @@ const art: Artwork[] = [
   { title: "[title]", medium: "[medium]", tag: "Fan art", h: 393, r: 1.5 },
 ];
 
-const wrap = "px-5 sm:px-10 lg:pl-60 lg:pr-48";
+const wrap = "px-5 sm:px-10 lg:pl-40 lg:pr-24";
 
 export default function PlaygroundPage() {
   return (

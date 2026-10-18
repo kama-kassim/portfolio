@@ -12,7 +12,7 @@ export function PasswordGate({ slug }: { slug: string }) {
   const err = state.error;
 
   return (
-    <section className="grid items-center gap-14 px-5 pb-28 pt-10 sm:px-10 lg:grid-cols-12 lg:pb-32 lg:pl-60 lg:pr-48 lg:pt-[72px]">
+    <section className="grid items-center gap-14 px-5 pb-28 pt-10 sm:px-10 lg:grid-cols-12 lg:pb-32 lg:pl-40 lg:pr-24 lg:pt-[72px]">
       <div className="flex flex-col gap-[22px] lg:col-span-6">
         <h1 className="m-0 text-5xl font-extrabold leading-[0.95] tracking-[-0.03em] [text-wrap:balance] sm:text-7xl lg:text-[84px]">
           This one&apos;s locked.

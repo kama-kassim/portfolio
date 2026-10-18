@@ -83,9 +83,9 @@ function CaseFolder({ p, n, flip }: { p: Project; n: number; flip: boolean }) {
           >
             <Tape className={`-top-3.5 h-7 w-[100px] ${flip ? "left-6" : "right-6"}`} r={flip ? -4 : 4} />
             {p.image ? (
-              <Image src={p.image} alt={`${p.name} homepage`} width={1200} height={750} className="border-2 border-ink" />
+              <Image src={p.image} alt={`${p.name} homepage`} width={1200} height={750} />
             ) : (
-              <Placeholder label={`${p.name} screenshot`} className="h-56 sm:h-[300px]" />
+              <Placeholder label={`${p.name} screenshot`} bare className="h-56 sm:h-[300px]" />
             )}
             <p className="mx-1 mt-1.5 text-right font-hand text-[28px] leading-tight text-muted">{p.year ?? "[year]"}</p>
           </div>

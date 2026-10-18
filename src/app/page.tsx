@@ -1,20 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { featured, process, stickers, type FeaturedProject } from "@/content/home";
+import { featuredSlugs, stickers } from "@/content/home";
+import { getProject, type Project } from "@/content/projects";
 import { site } from "@/content/site";
-import { PadlockIcon, Placeholder, RoleTag, Tape } from "@/components/Scrapbook";
+import { Placeholder, Tape } from "@/components/Scrapbook";
+import { PolaroidRow } from "@/components/PolaroidRow";
+import { SnapScroll } from "@/components/SnapScroll";
 
-const wrap = "px-5 sm:px-10 lg:pl-60 lg:pr-48";
+const wrap = "px-5 sm:px-10 lg:pl-40 lg:pr-24";
 
 export default function Home() {
   return (
     <>
+      <SnapScroll />
       <Hero />
+      <Overview />
       <RecentPages />
-      <Process />
       <Skills />
-      <DoodleCorner />
       <Postcard />
     </>
   );
@@ -22,30 +25,45 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section id="top" className={`relative flex flex-col items-center pb-24 pt-10 text-center lg:pb-36 lg:pt-20 ${wrap}`}>
-      <div className="relative z-10 -mb-6 w-56 sm:w-72 lg:-mb-9 lg:w-[380px]">
-        <Image
-          src="/oyen.svg"
-          alt="Oyen, a doodled cat face, peeking over the headline"
-          width={380}
-          height={224}
-          priority
-          className="h-auto w-full"
-        />
-        <p className="absolute left-[118%] top-[-14px] m-0 hidden w-60 rotate-[4deg] text-left font-hand text-[32px] leading-[1.1] lg:block">
-          I am allergic to cats,
-          <br />
-          But they so cute!
-        </p>
-      </div>
-
-      <div className="relative flex max-w-[980px] -rotate-1 flex-col items-center gap-5 rounded-md border-[3px] border-ink bg-white px-6 pb-10 pt-12 shadow-[0_18px_30px_-18px_rgba(35,31,32,0.35)] sm:px-12 lg:gap-[22px] lg:px-[72px] lg:pb-12 lg:pt-14">
+    // Fills the first screen: viewport height minus the ~109px header (svh stays stable on phones)
+    <section
+      id="top"
+      className={`relative flex min-h-[calc(100svh-109px)] snap-start scroll-mt-[200px] flex-col items-center justify-center pb-10 pt-36 text-center sm:pt-44 lg:py-[min(150px,14svh)] px-5 sm:px-10 lg:px-24`}
+    >
+      <div className="relative flex max-w-[980px] -rotate-1 flex-col items-center gap-5 rounded-md border-[3px] border-ink bg-white px-6 pb-10 pt-12 shadow-[0_18px_30px_-18px_rgba(35,31,32,0.35)] sm:px-12 lg:gap-[min(22px,1.8svh)] lg:px-[72px] lg:pb-[min(48px,4svh)] lg:pt-[min(56px,4.5svh)]">
+        {/* Oyen hangs off the card's top edge, so the card itself sits in the middle of the screen */}
+        <div className="absolute bottom-full left-1/2 z-10 -mb-6 w-56 -translate-x-1/2 rotate-1 sm:w-72 lg:-mb-9 lg:w-[min(380px,32svh)]">
+          <Image
+            src="/oyen.svg"
+            alt="Oyen, a doodled cat face, peeking over the headline"
+            width={380}
+            height={224}
+            priority
+            className="h-auto w-full"
+          />
+          <p className="absolute left-[118%] top-[-6px] m-0 hidden w-48 rotate-[4deg] text-left font-hand text-[24px] leading-[1.1] lg:block">
+            I am allergic to cats,
+            <br />
+            But they so cute!
+          </p>
+          <svg
+            className="absolute left-[89%] top-[13%] hidden xl:block"
+            style={{ transform: "rotate(139deg) scaleX(-0.95)" }}
+            width="180"
+            height="110"
+            viewBox="0 0 180 110"
+            aria-hidden="true"
+          >
+            <path d="M165 25 C130 8 60 18 22 75" stroke="var(--color-accent)" strokeWidth="4" fill="none" strokeLinecap="round" />
+            <path d="M40 68 L22 75 L23 56" stroke="var(--color-accent)" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
         <Tape className="-left-7 top-4 w-28 lg:w-[130px]" r={-32} />
         <Tape className="-right-7 top-4 w-28 lg:w-[130px]" r={32} />
-        <p className="m-0 font-hand text-2xl text-accent-dark sm:text-3xl lg:text-4xl">
+        <p className="m-0 font-hand text-2xl text-accent-dark sm:text-3xl lg:text-[min(36px,4svh)]">
           hi, I&apos;m Kama Kassim, a front-end developer
         </p>
-        <h1 className="m-0 text-5xl font-extrabold leading-[0.98] tracking-[-0.03em] sm:text-7xl lg:text-[92px]">
+        <h1 className="m-0 text-5xl font-extrabold leading-[0.98] tracking-[-0.03em] sm:text-7xl lg:text-[min(92px,9svh)]">
           The dev who{" "}
           <span className="relative inline-block">
             designs.
@@ -59,14 +77,14 @@ function Hero() {
             </svg>
           </span>
         </h1>
-        <p className="m-0 max-w-[640px] text-lg leading-relaxed text-muted [text-wrap:balance] sm:text-[22px]">
+        <p className="m-0 max-w-[640px] text-lg leading-relaxed text-muted [text-wrap:balance] sm:text-[22px] lg:text-[min(22px,2.6svh)]">
           I make websites look right and work right. Design and code, from the same pair of hands.
         </p>
         <div className="mt-2 flex flex-col gap-4 sm:flex-row">
-          <Link href="/work" className="btn-comic btn-primary px-7 py-4 text-xl lg:text-[22px]">
+          <Link href="/work" className="btn-comic btn-primary px-7 py-4 text-xl lg:py-[min(16px,1.8svh)] lg:text-[min(22px,2.6svh)]">
             Flip through my work
           </Link>
-          <a href={site.cv} className="btn-comic btn-secondary px-7 py-4 text-xl lg:text-[22px]">
+          <a href={site.cv} className="btn-comic btn-secondary px-7 py-4 text-xl lg:py-[min(16px,1.8svh)] lg:text-[min(22px,2.6svh)]">
             Grab my CV
           </a>
         </div>
@@ -76,107 +94,58 @@ function Hero() {
         </p>
       </div>
 
-      <svg
-        className="absolute left-[884px] top-[110px] hidden xl:block"
-        style={{ transform: "rotate(139deg) scaleX(-0.95)" }}
-        width="180"
-        height="110"
-        viewBox="0 0 180 110"
-        aria-hidden="true"
-      >
-        <path d="M165 25 C130 8 60 18 22 75" stroke="var(--color-accent)" strokeWidth="4" fill="none" strokeLinecap="round" />
-        <path d="M40 68 L22 75 L23 56" stroke="var(--color-accent)" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
     </section>
   );
 }
 
-function ProjectCard({ p, r, big = false }: { p: FeaturedProject; r: number; big?: boolean }) {
+const highlight = "bg-[linear-gradient(transparent_55%,var(--color-tape)_55%,var(--color-tape)_92%,transparent_92%)]";
+
+function Overview() {
   return (
-    <article
-      className={`polaroid relative flex flex-col border-2 border-ink bg-white shadow-[0_16px_24px_-16px_rgba(35,31,32,0.4)] ${
-        big ? "gap-4 px-5 pb-8 pt-5" : "gap-3 px-4 pb-6 pt-4"
-      }`}
-      style={{ "--r": `${r}deg` } as CSSProperties}
-    >
-      <Tape className={`left-1/2 -top-4 -translate-x-1/2 ${big ? "w-36" : "w-28"}`} r={big ? 3 : -4} />
-      {p.image ? (
-        <Image src={p.image} alt={`${p.name} homepage`} width={1200} height={750} className="border-2 border-ink" />
-      ) : (
-        <Placeholder label={`${p.name} screenshot`} className={big ? "min-h-[300px] flex-1" : "h-[150px]"} />
-      )}
-      <div>
-        <RoleTag role={p.role} />
+    <section id="about" className={`grid snap-center items-center gap-16 pb-24 pt-32 lg:pt-40 lg:grid-cols-[400px_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[500px_minmax(0,1fr)] xl:gap-16 ${wrap}`}>
+      <div className="relative mx-auto w-full max-w-[500px] pb-16 lg:mx-0">
+        <figure
+          className="relative m-0 w-[88%] max-w-[440px] border-2 border-ink bg-white px-4 pb-[52px] pt-4 shadow-[0_16px_24px_-16px_rgba(35,31,32,0.4)]"
+          style={{ rotate: "-4deg" }}
+        >
+          <Tape className="left-1/2 -top-4 w-[120px] -translate-x-1/2" r={-3} />
+          <Placeholder label="your workspace" bare className="aspect-[4/3]" />
+          <figcaption className="absolute bottom-3 left-5 font-hand text-[26px]">my workspace</figcaption>
+        </figure>
+        <p
+          className="absolute bottom-0 right-0 z-10 m-0 flex h-[150px] w-[180px] items-center border-2 border-ink bg-[#fff3c4] p-4 font-hand text-[22px] leading-[1.15] shadow-[0_14px_20px_-14px_rgba(35,31,32,0.45)] sm:h-[170px] sm:w-[200px] sm:p-[18px] sm:text-[25px]"
+          style={{ rotate: "7deg" }}
+        >
+          fun fact: allergic to cats. Oyen is drawn, so he&apos;s safe.
+        </p>
       </div>
-      <h3 className={`m-0 font-extrabold tracking-tight ${big ? "text-4xl" : "text-[26px]"}`}>{p.name}</h3>
-      {big && p.summary && <p className="m-0 max-w-[560px] text-lg leading-relaxed text-muted">{p.summary}</p>}
-      <Link
-        href={`/work/${p.slug}`}
-        className="inline-flex items-center gap-2 self-start font-bold"
-        aria-label={`View ${p.name} case study${p.locked ? " (password protected)" : ""}`}
-      >
-        View case study
-        {p.locked ? <PadlockIcon className="h-4 w-3.5 text-accent-dark" /> : <span aria-hidden="true">→</span>}
-      </Link>
-    </article>
+
+      <div className="flex flex-col gap-6">
+        <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">Who am I?</h2>
+        <p className="m-0 max-w-[640px] font-hand text-[30px] leading-[1.35] sm:text-[38px]">
+          I trained as a software engineer, then found out I liked picking the fonts too. Since 2024 I&apos;ve designed and
+          built websites in Next.js, Nuxt.js, Storyblok, WordPress and Shopify, and fussed over each one until it{" "}
+          <span className={highlight}>feels right on a phone</span>.
+        </p>
+        <Link href="/about" className="self-start text-lg font-extrabold">
+          More about me →
+        </Link>
+      </div>
+    </section>
   );
 }
 
 function RecentPages() {
-  const [first, ...rest] = featured;
-  return (
-    <section id="work" className={`flex flex-col gap-10 pb-24 pt-10 ${wrap}`}>
-      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-        <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">Recent pages</h2>
-        <p className="m-0 font-hand text-3xl text-faint sm:text-[34px]">stuck in here with tape</p>
-        <Link href="/work" className="text-lg font-extrabold sm:ml-auto">
-          See all work →
-        </Link>
-      </div>
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="flex lg:col-span-7 [&>article]:flex-1">
-          <ProjectCard p={first} r={-1.5} big />
-        </div>
-        <div className="flex flex-col gap-9 lg:col-span-5">
-          {rest.map((p, i) => (
-            <ProjectCard key={p.slug} p={p} r={i === 0 ? 2 : -1} />
-          ))}
-        </div>
-      </div>
-    </section>
+  const recent = featuredSlugs.map((slug) => getProject(slug)).filter((p): p is Project => !!p);
+  const heading = (
+    <div className={`flex flex-wrap items-baseline gap-x-5 gap-y-2 ${wrap}`}>
+      <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">Recent pages</h2>
+      <Link href="/work" className="text-lg font-extrabold sm:ml-auto">
+        See all work →
+      </Link>
+    </div>
   );
-}
-
-function Process() {
-  return (
-    <section id="process" className={`grid gap-10 pb-24 pt-14 lg:grid-cols-12 lg:gap-12 ${wrap}`}>
-      <div className="flex flex-col gap-5 lg:col-span-5">
-        <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">My to-do list</h2>
-        <p className="m-0 max-w-[420px] text-xl leading-relaxed text-muted">
-          Same four steps on every project, whether it&apos;s a Shopify store or a Next.js site.
-        </p>
-      </div>
-      <ol className="m-0 flex list-none flex-col gap-6 p-0 pt-1.5 lg:col-span-7 lg:gap-0">
-        {process.map((s) => (
-          <li key={s.title} className="flex items-start gap-5 lg:min-h-20">
-            <svg width="34" height="34" viewBox="0 0 34 34" className="shrink-0" aria-hidden="true">
-              <rect x="3" y="3" width="28" height="28" rx="4" stroke="currentColor" strokeWidth="3" fill="none" />
-              {s.done && (
-                <path d="M8 17 L15 24 L30 4" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-              )}
-            </svg>
-            <div>
-              <h3 className="m-0 text-[26px] font-extrabold leading-tight">
-                {s.title}
-                <span className="sr-only">{s.done ? " (done)" : " (next)"}</span>
-              </h3>
-              <p className="mt-0.5 text-lg text-muted">{s.text}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
+  return <PolaroidRow projects={recent} heading={heading} />;
 }
 
 const stickerStyle = {
@@ -187,7 +156,7 @@ const stickerStyle = {
 
 function Skills() {
   return (
-    <section id="skills" className={`flex flex-col gap-8 pb-28 pt-14 ${wrap}`}>
+    <section id="skills" className={`flex snap-start flex-col gap-8 pb-28 pt-14 ${wrap}`}>
       <div className="flex flex-col gap-2">
         <span className="text-sm font-extrabold tracking-[2px] text-accent-dark">SKILLS</span>
         <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">Stickers I&apos;ve collected</h2>
@@ -209,46 +178,9 @@ function Skills() {
   );
 }
 
-function DoodleCorner() {
-  const art = [
-    { label: "artwork", r: -7, pos: "left-0 top-10 z-10 lg:left-3.5", tr: -4 },
-    { label: "favourite artwork", r: 2, pos: "left-[28%] top-2 z-30 lg:left-[170px]", tr: 3 },
-    { label: "artwork", r: 7, pos: "left-[56%] top-12 z-20 lg:left-[326px]", tr: -6 },
-  ];
-  return (
-    <section id="playground" className={`grid items-center gap-10 pb-28 pt-14 lg:grid-cols-12 lg:gap-12 ${wrap}`}>
-      <div className="flex flex-col gap-5 lg:col-span-5">
-        <h2 className="m-0 text-4xl font-extrabold tracking-[-0.03em] sm:text-6xl">Doodle corner</h2>
-        <p className="m-0 -rotate-[1.5deg] font-hand text-[32px] text-accent-dark">off the clock, I draw.</p>
-        <p className="m-0 max-w-[440px] text-xl leading-relaxed text-muted">
-          Anime-style characters, fan art and original designs. It&apos;s where most of my eye for colour and composition
-          comes from.
-        </p>
-        <Link href="/playground" className="btn-comic btn-secondary mt-2 self-start px-6 py-3.5 text-xl">
-          See the playground →
-        </Link>
-      </div>
-      <div className="relative h-[300px] sm:h-[360px] lg:col-span-7">
-        {art.map((a, i) => (
-          <figure
-            key={i}
-            className={`polaroid absolute m-0 w-[40%] max-w-[190px] border-2 border-ink bg-white px-3 pb-10 pt-3 shadow-[0_16px_24px_-16px_rgba(35,31,32,0.4)] ${a.pos}`}
-            style={{ "--r": `${a.r}deg` } as CSSProperties}
-          >
-            <Tape className="left-1/2 -top-3.5 h-[26px] w-[90px] -translate-x-1/2" r={a.tr} />
-            <div className="flex h-44 items-center justify-center bg-placeholder text-center font-medium text-[#7a7275] sm:h-[220px]">
-              [{a.label}]
-            </div>
-          </figure>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function Postcard() {
   return (
-    <section id="contact" className={`flex justify-center pb-36 pt-20 lg:pt-44 ${wrap}`}>
+    <section id="contact" className={`flex snap-start justify-center pb-36 pt-20 lg:pt-44 ${wrap}`}>
       <div className="relative grid w-full max-w-[980px] -rotate-1 gap-10 border-[3px] border-ink bg-white px-6 py-10 shadow-[0_28px_44px_-22px_rgba(35,31,32,0.45)] sm:px-12 sm:py-14 md:grid-cols-2 lg:gap-12 lg:px-[72px] lg:py-16">
         <div className="flex flex-col gap-[18px] border-ink md:border-r-2 md:border-dashed md:pr-10">
           <p className="m-0 font-hand text-[32px] text-accent-dark">a postcard for you</p>

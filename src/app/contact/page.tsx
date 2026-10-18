@@ -3,13 +3,13 @@ import { ContactForm } from "@/components/ContactForm";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Let's talk — Kama Kassim",
+  title: "Let's talk — Kama's Sketchbook",
   description: "Hiring, a project, or a question? Send Kama a note. She replies within 1–2 days.",
 };
 
 export default function ContactPage() {
   return (
-    <section className="flex flex-col gap-10 px-5 pb-28 pt-10 sm:px-10 lg:pl-60 lg:pr-48 lg:pt-14">
+    <section className="flex flex-col gap-10 px-5 pb-28 pt-10 sm:px-10 lg:pl-40 lg:pr-24 lg:pt-14">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
         <div className="flex flex-col gap-3.5">
           <p className="m-0 -rotate-[1.5deg] self-start font-hand text-3xl text-accent-dark">write me a postcard</p>

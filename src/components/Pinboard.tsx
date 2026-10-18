@@ -47,9 +47,9 @@ export function Pinboard({ art }: { art: Artwork[] }) {
           >
             <Tape className="left-1/2 -top-3.5 h-[26px] w-[90px] -translate-x-1/2" r={a.r > 0 ? -3 : 3} />
             {a.image ? (
-              <Image src={a.image} alt={a.title} width={800} height={a.h * 2} className="h-auto w-full border-2 border-ink" />
+              <Image src={a.image} alt={a.title} width={800} height={a.h * 2} className="h-auto w-full" />
             ) : (
-              <Placeholder label={a.favourite ? "favourite artwork" : "artwork"} style={{ height: a.h }} />
+              <Placeholder label={a.favourite ? "favourite artwork" : "artwork"} bare style={{ height: a.h }} />
             )}
             <figcaption className="absolute bottom-2 left-4 font-hand text-[22px] text-muted">
               {a.favourite ? `${a.title}, my favourite` : `${a.title} · ${a.medium}`}

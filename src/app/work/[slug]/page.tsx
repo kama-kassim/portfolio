@@ -13,7 +13,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = getProject(slug);
-  return { title: p ? `${p.name} — Kama Kassim` : "Not found", robots: p?.locked ? { index: false } : undefined };
+  return { title: p ? `${p.name} — Kama's Sketchbook` : "Not found", robots: p?.locked ? { index: false } : undefined };
 }
 
 export default function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {

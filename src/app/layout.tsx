@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { Bricolage_Grotesque, Caveat } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Maintenance } from "@/components/Maintenance";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -18,10 +21,20 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Kama Kassim — front-end developer who designs",
+  title: "Kama's Sketchbook",
   description:
-    "Portfolio of Kama Kassim, a front-end developer in Malaysia who designs and builds websites.",
+    "Portfolio of Kama Kassim, a front-end developer in Malaysia with a UI/UX focus, building in Next.js, Nuxt.js, Storyblok, WordPress and Shopify.",
 };
+
+// Set MAINTENANCE_MODE=true (in .env.local or Vercel) to show the "Be back soon" page on every route
+const maintenance = process.env.MAINTENANCE_MODE === "true";
+
+// While the maintenance page hides the real pages, nothing else waits for the request, and the
+// case-study titles (which read the URL) would block the build. This empty marker keeps them streaming.
+async function RequestMarker() {
+  await connection();
+  return null;
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -30,19 +43,30 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body suppressHydrationWarning className="relative flex min-h-screen flex-col overflow-x-clip font-sans">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-3 w-0.5 bg-accent/30 lg:left-[120px]"
+          className="pointer-events-none absolute inset-y-0 left-3 hidden w-0.5 bg-accent/30 sm:block lg:left-[120px]"
         />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2"
-        >
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
+        {maintenance ? (
+          <>
+            <Maintenance />
+            <Suspense fallback={null}>
+              <RequestMarker />
+            </Suspense>
+          </>
+        ) : (
+          <>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2"
+            >
+              Skip to content
+            </a>
+            <SiteHeader />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+          </>
+        )}
       </body>
     </html>
   );

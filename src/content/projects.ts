@@ -20,7 +20,7 @@ export const projects: Project[] = [
     slug: "steel-arch-awards",
     name: "Steel Arch Awards",
     role: "Developed",
-    summary: "A headless awards site. I turned the UI/UX team's designs into the live site the client edits themselves.",
+    summary: "A headless awards site. I turned the UI/UX team's designs into the live site the client edits themselves, with GTM and GA4 tracking.",
     locked: true,
     stack: ["Next.js", "Storyblok", "Headless CMS"],
   },
@@ -53,7 +53,7 @@ export const projects: Project[] = [
     name: "Aura Crown",
     role: "Designed + developed",
     summary: "Designed the site, then built it in WordPress.",
-    locked: true,
+    locked: false,
     stack: ["WordPress", "WP Canai", "Claude Design"],
   },
   {
@@ -90,11 +90,11 @@ export const projects: Project[] = [
   },
   {
     slug: "boss-7-engineering",
-    name: "Boss 7 Engineering",
-    role: "Developed",
-    summary: "Built the company website.",
+    name: "Boss Seven Engineering",
+    role: "Designed + developed",
+    summary: "Designed it in Figma, then built the company website with custom features beyond the Elementor templates.",
     locked: true,
-    stack: ["WordPress", "Elementor Pro"],
+    stack: ["Figma", "WordPress", "Elementor Pro"],
   },
   {
     slug: "baizigui",
@@ -107,8 +107,8 @@ export const projects: Project[] = [
   {
     slug: "jolicare",
     name: "Jolicare",
-    role: "Developed",
-    summary: "Built the online store pages.",
+    role: "Designed + developed",
+    summary: "Designed and built the store, with custom landing and product pages.",
     locked: true,
     stack: ["Shopify", "PageFly"],
   },
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     name: "KitsuCoat",
     role: "Designed",
     summary: "Website design.",
-    locked: true,
+    locked: false,
     stack: ["Claude Design", "Figma"],
   },
   {

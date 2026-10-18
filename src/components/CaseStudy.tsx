@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import type { Project } from "@/content/projects";
 import { PadlockIcon, Placeholder, Tape } from "./Scrapbook";
 
-const wrap = "px-5 sm:px-10 lg:pl-60 lg:pr-48";
+const wrap = "px-5 sm:px-10 lg:pl-40 lg:pr-24";
 const shadow = "shadow-[0_16px_24px_-16px_rgba(35,31,32,0.4)]";
 const label = "text-xs font-extrabold tracking-[2px] text-faint";
 

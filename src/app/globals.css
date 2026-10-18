@@ -116,6 +116,64 @@ a:hover {
   transform: rotate(calc(var(--tr, 0deg) * -1));
 }
 
+/* Maintenance caution tape: words slide along like a ticker */
+.ticker {
+  animation: ticker 40s linear infinite;
+}
+.ticker-reverse {
+  animation-direction: reverse;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Maintenance page reveal: tapes unroll, note drops in, Oyen peeks up, text rises one line at a time */
+.reveal-tape {
+  animation: unroll 900ms cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+.reveal-card {
+  animation: drop-in 700ms cubic-bezier(0.25, 1, 0.5, 1) 250ms both;
+}
+.reveal-peek {
+  animation: peek 600ms cubic-bezier(0.25, 1, 0.5, 1) 850ms both;
+}
+.reveal-up {
+  animation: rise 600ms cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+.reveal-up:nth-child(1) { animation-delay: 450ms; }
+.reveal-up:nth-child(2) { animation-delay: 520ms; }
+.reveal-up:nth-child(3) { animation-delay: 590ms; }
+.reveal-up:nth-child(4) { animation-delay: 660ms; }
+.reveal-up:nth-child(5) { animation-delay: 730ms; }
+@keyframes unroll {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+}
+@keyframes peek {
+  from {
+    opacity: 0;
+    transform: translateY(45%);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
 /* Hero underline draws itself in */
 .draw-in path {
   stroke-dasharray: 400;
@@ -132,6 +190,13 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ticker,
+  .reveal-tape,
+  .reveal-card,
+  .reveal-peek,
+  .reveal-up {
+    animation: none;
+  }
   .draw-in path {
     animation: none;
     stroke-dashoffset: 0;

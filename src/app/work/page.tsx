@@ -5,11 +5,11 @@ import { WorkList } from "@/components/WorkList";
 import { PadlockIcon } from "@/components/Scrapbook";
 
 export const metadata: Metadata = {
-  title: "Work — Kama Kassim",
+  title: "Work — Kama's Sketchbook",
   description: "Websites Kama Kassim designed, developed, or both.",
 };
 
-const wrap = "px-5 sm:px-10 lg:pl-60 lg:pr-48";
+const wrap = "px-5 sm:px-10 lg:pl-40 lg:pr-24";
 
 export default function WorkPage() {
   return (
@@ -23,10 +23,9 @@ export default function WorkPage() {
         </p>
         <p className="m-0 max-w-[620px] text-[17px] font-semibold leading-relaxed">
           <PadlockIcon className="mr-2 inline-block h-[18px] w-4 -translate-y-0.5 text-accent-dark" />
-          Most case studies are password protected. One password opens them all: [where to get it, e.g. it&apos;s in my CV],
-          or{" "}
+          Client case studies are password protected, and one password opens them all.{" "}
           <Link href="/contact" className="font-bold">
-            ask me for it
+            Ask me for it
           </Link>
           .
         </p>
