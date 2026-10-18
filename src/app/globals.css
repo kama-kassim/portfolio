@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: #231f20;
+  --color-paper: #fbf7ee;
+  --color-accent: #f97316;
+  --color-accent-dark: #c2410c;
+  --color-tape: #fdba74;
+  --color-muted: #4a4447;
+  --color-faint: #6b6467;
+  --color-placeholder: #f1ece2;
+  --color-kraft: #e8d6b3;
+  --color-kraft-light: #f3e7cf;
+
+  --font-sans: var(--font-bricolage);
+  --font-hand: var(--font-caveat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Paper colour on <html> too, so no dark browser canvas flashes through during navigation */
+html {
+  background-color: var(--color-paper);
+  color-scheme: light;
+}
+
+/* Lined notebook paper behind every page */
+body {
+  background-color: var(--color-paper);
+  background-image: repeating-linear-gradient(
+    transparent 0,
+    transparent 39px,
+    #e4dccb 39px,
+    #e4dccb 40px
+  );
+  color: var(--color-ink);
+}
+
+a {
+  color: inherit;
+}
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent-dark);
+  outline-offset: 3px;
+}
+
+/* Comic-style buttons: hard ink shadow that presses in on click */
+.btn-comic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 5px 5px 0 var(--color-ink);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+.btn-comic:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 var(--color-ink);
+}
+.btn-comic:active {
+  transform: translate(4px, 4px);
+  box-shadow: 1px 1px 0 var(--color-ink);
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  text-shadow: 2px 2px 0 var(--color-ink);
+}
+.btn-primary:hover {
+  color: #fff;
+}
+.btn-secondary {
+  background: #fff;
+  color: var(--color-ink);
+}
+.btn-secondary:hover {
+  color: var(--color-ink);
+}
+
+/* Skill stickers: tilt more and lift on hover / tap */
+.sticker {
+  transform: rotate(var(--r, 0deg));
+  transition: transform 220ms cubic-bezier(0.25, 1, 0.5, 1); /* ease-out-quart */
+}
+.sticker:hover,
+.sticker:focus-visible {
+  transform: rotate(calc(var(--r, 0deg) * -1.6)) translateY(-4px) scale(1.04);
+}
+
+/* Taped polaroids: straighten and lift on hover, tape wiggles */
+.polaroid {
+  transform: rotate(var(--r, 0deg));
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+.polaroid:hover,
+.polaroid:focus-within {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 26px 34px -18px rgba(35, 31, 32, 0.45);
+}
+.polaroid .tape {
+  transition: transform 250ms ease;
+}
+.polaroid:hover .tape {
+  transform: rotate(calc(var(--tr, 0deg) * -1));
+}
+
+/* Hero underline draws itself in */
+.draw-in path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw 700ms ease-out forwards;
+}
+.draw-in path:nth-child(2) {
+  animation-delay: 350ms;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  .draw-in path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .btn-comic,
+  .sticker,
+  .polaroid,
+  .polaroid .tape {
+    transition: none;
+  }
+  .sticker:hover,
+  .sticker:focus-visible,
+  .polaroid:hover,
+  .polaroid:focus-within,
+  .polaroid:hover .tape {
+    transform: rotate(var(--r, 0deg));
+  }
 }
