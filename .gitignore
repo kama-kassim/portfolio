@@ -43,3 +43,7 @@ next-env.d.ts
 # private planning notes (lists client stacks; keep out of the public repo)
 /docs/
 /PRODUCT.md
+
+# local Claude Code settings
+/.claude/
+!.env.example
